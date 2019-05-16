@@ -105,14 +105,7 @@ public class UserController {
 
          return ResponseEntity.ok(newUser);
     }
-    /**
-     * Update user response entity.
-     *
-     * @param userId the user id
-     * @param userDetails the user details
-     * @return the response entity
-     * @throws ResourceNotFoundException the resource not found exception
-     */
+
 
     @PutMapping("/changepassword")
     public ResponseEntity<ChangePasswordDTO> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDetails) throws  ResourceNotFoundException
