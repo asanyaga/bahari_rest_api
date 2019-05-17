@@ -14,16 +14,21 @@ import io.upepo.baharirestapi.repository.RoleRepository;
 import io.upepo.baharirestapi.security.JwtTokenProvider;
 import io.upepo.baharirestapi.payload.JwtAuthenticationResponse;
 
+import net.bytebuddy.agent.builder.ResettableClassFileTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -51,18 +56,23 @@ public class UserController {
      *
      * @return the list
      */
+
+    @GetMapping("/users/current")
+   public ResponseEntity<?> getCurrentUser(Authentication authentication)
+    {
+        UserDetails principal = (UserDetails)authentication.getPrincipal();
+
+        return ResponseEntity.ok(principal);
+    }
+
     @GetMapping("/users")
+    @PreAuthorize("hasAuthority('USER_READ')")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-    /**
-     * Gets users by id.
-     *
-     * @param userId the user id
-     * @return the users by id
-     * @throws ResourceNotFoundException the resource not found exception
-     */
+
     @GetMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('USER_READ')")
     public ResponseEntity<User> getUsersById(@PathVariable(value = "id") Long userId)
             throws ResourceNotFoundException {
         User user =
@@ -71,13 +81,9 @@ public class UserController {
                         .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + userId));
         return ResponseEntity.ok().body(user);
     }
-    /**
-     * Create user user.
-     *
-     * @param user the user
-     * @return the user
-     */
+
     @PostMapping("/users")
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     public ResponseEntity<?> createUser(@Valid @RequestBody User user) throws UserNameExistsException, EmailExistsException, ResourceNotFoundException {
 
         List<User> duplicateUser = userRepository.findByusername(user.getUserName());
@@ -107,6 +113,7 @@ public class UserController {
 
 
     @PutMapping("/changepassword")
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<ChangePasswordDTO> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDetails) throws  ResourceNotFoundException
     {
         User user =
@@ -165,6 +172,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<User> updateUser(
             @PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails)
             throws ResourceNotFoundException {
@@ -191,6 +199,7 @@ public class UserController {
      * @throws Exception the exception
      */
     @DeleteMapping("/user/{id}")
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws Exception {
         User user =
                 userRepository

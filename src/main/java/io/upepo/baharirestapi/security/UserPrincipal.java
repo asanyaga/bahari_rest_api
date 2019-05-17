@@ -1,6 +1,8 @@
 package io.upepo.baharirestapi.security;;
 
 
+import io.upepo.baharirestapi.model.Privilege;
+import io.upepo.baharirestapi.model.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 import io.upepo.baharirestapi.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -38,10 +41,24 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
+   static List<GrantedAuthority> getAuthorities(User user)
+   {
+       List<GrantedAuthority> authorities = new ArrayList<>();
+
+       for(Role role: user.getRoles())
+       {
+           for(Privilege privilege: role.getPrivileges())
+           {
+               authorities.add(new SimpleGrantedAuthority(privilege.getName()));
+           }
+       }
+       return authorities;
+   }
+
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+      /*  List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName())
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList());*/
 
         return new UserPrincipal(
                 user.getId(),
@@ -49,7 +66,7 @@ public class UserPrincipal implements UserDetails {
                 user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                getAuthorities(user)
         );
     }
 
