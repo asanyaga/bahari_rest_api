@@ -31,6 +31,11 @@ public class RoleController {
     {
         Role roleInDB = roleRepository.findById(roleId).orElseThrow(()-> new ResourceNotFoundException(("Role not fouund")));
 
+        if(roleInDB.getIsSystem())
+        {
+            return ResponseEntity.badRequest().body("Cannot Update System Role");
+        }
+
         roleInDB.setName(roleUpdated.getName());
         roleInDB.setPrivileges(roleUpdated.getPrivileges());
 
@@ -56,6 +61,11 @@ public class RoleController {
     public ResponseEntity<?>deleteRole(@PathVariable(value="id") Long roleId) throws ResourceNotFoundException
     {
         Role role= roleRepository.findById(roleId).orElseThrow(()-> new ResourceNotFoundException("Role not found"));
+
+        if(role.getIsSystem())
+        {
+            return ResponseEntity.badRequest().body("Cannot delete system role");
+        }
 
         roleRepository.delete(role);
 

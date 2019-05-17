@@ -19,6 +19,9 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "issystem")
+    private boolean issystem;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_privileges",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -55,5 +58,13 @@ public class Role {
 
     public void setPrivileges(List<Privilege> privileges) {
         this.privileges = privileges;
+    }
+
+    public boolean getIsSystem() {
+        return issystem;
+    }
+
+    public void setIsSystem(boolean issystem) {
+        this.issystem = issystem;
     }
 }

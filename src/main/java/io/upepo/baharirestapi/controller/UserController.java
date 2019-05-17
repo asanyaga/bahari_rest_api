@@ -124,6 +124,7 @@ public class UserController {
         if(user.getPassword().equals(changePasswordDetails.getOldPassword()))
         {
             user.setPassword(changePasswordDetails.getNewPassword());
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return  ResponseEntity.ok(changePasswordDetails);
 
@@ -180,14 +181,17 @@ public class UserController {
                 userRepository
                         .findById(userId)
                         .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + userId));
-        user.setEmail(userDetails.getEmail());
+        // user.setEmail(userDetails.getEmail());
         user.setLastName(userDetails.getLastName());
         user.setFirstName(userDetails.getFirstName());
         user.setUpdatedAt(new Date());
         user.setUserType(userDetails.getUserType());
-        user.setUserName(userDetails.getUserName());
-        user.setPassword(userDetails.getPassword());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // user.setUserName(userDetails.getUserName());
+        //user.setPassword(userDetails.getPassword());
+       // user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPhone(userDetails.getPhone());
+        user.setIsEnabled(userDetails.getIsEnabled());
+        user.setRoles(userDetails.getRoles());
         final User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }

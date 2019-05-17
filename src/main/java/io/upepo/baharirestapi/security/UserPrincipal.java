@@ -30,15 +30,19 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private boolean isenabled;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities,boolean isenabled) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.isenabled = isenabled;
+
     }
 
    static List<GrantedAuthority> getAuthorities(User user)
@@ -66,7 +70,8 @@ public class UserPrincipal implements UserDetails {
                 user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
-                getAuthorities(user)
+                getAuthorities(user),
+                user.getIsEnabled()
         );
     }
 
@@ -114,7 +119,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isenabled;
     }
 
     @Override

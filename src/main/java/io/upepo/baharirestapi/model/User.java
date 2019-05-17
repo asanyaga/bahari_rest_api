@@ -29,6 +29,10 @@ public class User {
     @Column(name = "last_name", nullable = false)
     @NotBlank(message="Last name must not be blank")
     private String lastName;
+
+    @Column(name="phone")
+    private String phone;
+
     @Column(name = "email_address", nullable = false)
     @Email(message = "Email must be valid")
     private String email;
@@ -61,6 +65,9 @@ public class User {
     @Column(name = "updated_by", nullable = false)
     @LastModifiedBy
     private String updatedBy;
+
+    @Column(name = "isenabled")
+    private boolean isenabled;
     /**
      * Gets id.
      *
@@ -227,5 +234,21 @@ public class User {
      */
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean getIsEnabled() {
+        return isenabled;
+    }
+
+    public void setIsEnabled(boolean isenabled) {
+        this.isenabled = isenabled;
     }
 }
