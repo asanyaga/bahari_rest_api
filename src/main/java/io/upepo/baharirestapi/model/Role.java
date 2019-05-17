@@ -14,10 +14,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+
     @NaturalId
-    @Column(length = 60)
-    private RoleName name;
+    @Column(name = "name")
+    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_privileges",
@@ -29,7 +29,7 @@ public class Role {
 
     }
 
-    public Role(RoleName name) {
+    public Role(String name) {
         this.name = name;
     }
 
@@ -41,11 +41,11 @@ public class Role {
         this.id = id;
     }
 
-    public RoleName getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(RoleName name) {
+    public void setName(String name) {
         this.name = name;
     }
 

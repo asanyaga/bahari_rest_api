@@ -6,7 +6,6 @@ import io.upepo.baharirestapi.exception.ResourceNotFoundException;
 import io.upepo.baharirestapi.exception.UserNameExistsException;
 import io.upepo.baharirestapi.model.Role;
 import io.upepo.baharirestapi.model.User;
-import io.upepo.baharirestapi.model.RoleName;
 
 import io.upepo.baharirestapi.payload.ChangePasswordDTO;
 import io.upepo.baharirestapi.payload.LoginDTO;
@@ -96,7 +95,7 @@ public class UserController {
          }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseThrow(() -> new ResourceNotFoundException ("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
