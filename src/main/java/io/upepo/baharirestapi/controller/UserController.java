@@ -1,7 +1,6 @@
 package io.upepo.baharirestapi.controller;
 
 import io.upepo.baharirestapi.exception.EmailExistsException;
-import io.upepo.baharirestapi.exception.InvalidUserNamePasswordException;
 import io.upepo.baharirestapi.exception.ResourceNotFoundException;
 import io.upepo.baharirestapi.exception.UserNameExistsException;
 import io.upepo.baharirestapi.model.Role;
@@ -14,10 +13,10 @@ import io.upepo.baharirestapi.repository.RoleRepository;
 import io.upepo.baharirestapi.security.JwtTokenProvider;
 import io.upepo.baharirestapi.payload.JwtAuthenticationResponse;
 
-import net.bytebuddy.agent.builder.ResettableClassFileTransformer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -135,7 +133,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public ResponseEntity<User> login (@Valid @RequestBody LoginDTO loginDetails) throws InvalidUserNamePasswordException
     {
         List<User> users = userRepository.findByusername(loginDetails.getUserName());
@@ -154,9 +152,9 @@ public class UserController {
         }
 
         return  ResponseEntity.ok(user);
-    }
+    }*/
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(

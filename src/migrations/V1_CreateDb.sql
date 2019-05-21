@@ -81,6 +81,11 @@ INSERT INTO privileges (name) VALUES ("USER_READ");
 INSERT INTO privileges (name) VALUES ("USER_UPDATE");
 INSERT INTO privileges (name) VALUES ("USER_DELETE");
 
+INSERT INTO privileges (name) VALUES ("CUSTOMER_CREATE");
+INSERT INTO privileges (name) VALUES ("CUSTOMER_READ");
+INSERT INTO privileges (name) VALUES ("CUSTOMER_UPDATE");
+INSERT INTO privileges (name) VALUES ("CUSTOMER_DELETE");
+
 INSERT INTO roles (name,issystem) VALUES ('ROLE_USER',1);
 INSERT INTO roles (name,issystem) VALUES ('ROLE_ADMIN',1);
 
@@ -116,3 +121,17 @@ now(),
 1);
 
 INSERT INTO user_roles (user_id,role_id)  select u.id,r.id from users u, roles r  where u.username='Admin' and r.name ='ROLE_ADMIN';
+
+CREATE TABLE `customers` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `customer_type` VARCHAR(45) NOT NULL,
+  `id_number` VARCHAR(45) NOT NULL,
+  `pin_number` VARCHAR(45) NOT NULL,
+  `postal_address` VARCHAR(100) NOT NULL DEFAULT '\"\"',
+  `postal_code` VARCHAR(10) NOT NULL DEFAULT '\"\"',
+  `phone` VARCHAR(45) NOT NULL DEFAULT '\"\"',
+  `email` VARCHAR(45) NOT NULL DEFAULT '\"\"',
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `id_number_UNIQUE` (`id_number` ASC) VISIBLE,
+  UNIQUE INDEX `pin_number_UNIQUE` (`pin_number` ASC) VISIBLE);
