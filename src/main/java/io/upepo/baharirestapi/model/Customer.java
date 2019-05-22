@@ -1,6 +1,5 @@
 package io.upepo.baharirestapi.model;
 
-import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
@@ -21,9 +20,12 @@ public class Customer {
     @NotBlank(message = "Customer name must be entered")
     String customertype;
 
+    @Column(name = "customer_number")
+    private String customerNumber;
+
     @Column(name="id_number")
     @NotBlank(message="Customer type must be entered")
-    String idnumber;
+    String idNumber;
 
     @Column(name="pin_number")
     @NotBlank(message = "KRA PIN must be entered")
@@ -71,12 +73,12 @@ public class Customer {
 
     public String getIdNumber()
     {
-        return this.idnumber;
+        return this.idNumber;
     }
 
     public void setIdNumber(String number)
     {
-        this.idnumber=number;
+        this.idNumber =number;
     }
 
     public String getPinNumber()
@@ -127,5 +129,13 @@ public class Customer {
     public void setEmail(String email)
     {
         this.email=email;
+    }
+
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
     }
 }

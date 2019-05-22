@@ -86,6 +86,11 @@ INSERT INTO privileges (name) VALUES ("CUSTOMER_READ");
 INSERT INTO privileges (name) VALUES ("CUSTOMER_UPDATE");
 INSERT INTO privileges (name) VALUES ("CUSTOMER_DELETE");
 
+INSERT INTO privileges (name) VALUES ("METER_CREATE");
+INSERT INTO privileges (name) VALUES ("METER_READ");
+INSERT INTO privileges (name) VALUES ("METER_UPDATE");
+INSERT INTO privileges (name) VALUES ("METER_DELETE");
+
 INSERT INTO roles (name,issystem) VALUES ('ROLE_USER',1);
 INSERT INTO roles (name,issystem) VALUES ('ROLE_ADMIN',1);
 
@@ -125,6 +130,7 @@ INSERT INTO user_roles (user_id,role_id)  select u.id,r.id from users u, roles r
 CREATE TABLE `customers` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
+  `customer_number` VARCHAR(10) NOT NULL DEFAULT '\"\"',
   `customer_type` VARCHAR(45) NOT NULL,
   `id_number` VARCHAR(45) NOT NULL,
   `pin_number` VARCHAR(45) NOT NULL,
@@ -135,3 +141,22 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`Id`),
   UNIQUE INDEX `id_number_UNIQUE` (`id_number` ASC) VISIBLE,
   UNIQUE INDEX `pin_number_UNIQUE` (`pin_number` ASC) VISIBLE);
+  
+  CREATE TABLE `meters` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `meter_number` varchar(45) NOT NULL DEFAULT '""',
+  `device_number` varchar(45) NOT NULL DEFAULT '""',
+  `imei_number` varchar(45) NOT NULL DEFAULT '""',
+  `size` varchar(45) NOT NULL DEFAULT '0',
+  `manufacturer` varchar(100) NOT NULL DEFAULT '""',
+  `model` varchar(45) NOT NULL DEFAULT '""',
+  `type` varchar(45) NOT NULL DEFAULT '""',
+  `reset_value` decimal(8,2) NOT NULL DEFAULT '999999.99',
+  `installation_date` date DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT '0.00000000',
+  `longitude` decimal(11,8) DEFAULT '0.00000000',
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `meter_number_UNIQUE` (`meter_number`),
+  UNIQUE KEY `device_number_UNIQUE` (`device_number`);
+  
+  

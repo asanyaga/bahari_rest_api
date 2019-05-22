@@ -53,6 +53,7 @@ public class CustomerController {
         Customer customerInDB = customerRepository.findById(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
         customerInDB.setCustomerType(updatedCustomer.getCustomerType());
+        customerInDB.setCustomerNumber(updatedCustomer.getCustomerNumber());
         customerInDB.setName(updatedCustomer.getName());
         customerInDB.setIdNumber(updatedCustomer.getIdNumber());
         customerInDB.setPinNumber(updatedCustomer.getPinNumber());
