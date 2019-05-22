@@ -159,4 +159,11 @@ CREATE TABLE `customers` (
   UNIQUE KEY `meter_number_UNIQUE` (`meter_number`),
   UNIQUE KEY `device_number_UNIQUE` (`device_number`);
   
+  CREATE TABLE `zones` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`Id`)
+);
+
+  
   
