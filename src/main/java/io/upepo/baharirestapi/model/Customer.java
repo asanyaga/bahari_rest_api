@@ -1,9 +1,13 @@
 package io.upepo.baharirestapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Email;
+import java.util.List;
 
 @Entity
 @Table(name="customers")
@@ -43,6 +47,10 @@ public class Customer {
     @Email(message = "Email format must be valid")
     @Column(name="email")
     String email;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties({"zone", "customer"})
+    private List<Connection> connections;
 
 
     public Long getId() {
@@ -137,5 +145,13 @@ public class Customer {
 
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
+    }
+
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<Connection> connections) {
+        this.connections = connections;
     }
 }

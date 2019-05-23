@@ -165,5 +165,24 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`Id`)
 );
 
+CREATE TABLE `connections` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `tenure` varchar(45) NOT NULL,
+  `classification` varchar(45) NOT NULL,
+  `plot_number` varchar(45) NOT NULL,
+  `county` varchar(45) DEFAULT '""',
+  `sub_county` varchar(45) DEFAULT '""',
+  `location` varchar(45) DEFAULT '""',
+  `sub_location` varchar(45) DEFAULT '""',
+  `town` varchar(45) DEFAULT '""',
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL,
+  `zone_id` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `connection_zone_idx` (`zone_id`),
+  CONSTRAINT `connection_zone` FOREIGN KEY (`zone_id`) REFERENCES `zones` (`id`)
+);
+
   
   
