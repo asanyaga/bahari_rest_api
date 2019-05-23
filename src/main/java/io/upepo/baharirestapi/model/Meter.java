@@ -1,5 +1,8 @@
 package io.upepo.baharirestapi.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
@@ -48,6 +51,11 @@ public class Meter {
 
     @Column(name="longitude")
     private BigDecimal longitude;
+
+    @ManyToOne()
+    @JoinColumn(name="connection_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Connection connection;
 
     public String getMeterNumber() {
         return meterNumber;
@@ -143,5 +151,13 @@ public class Meter {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

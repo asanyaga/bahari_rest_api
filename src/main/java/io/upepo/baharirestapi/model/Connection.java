@@ -1,11 +1,14 @@
 package io.upepo.baharirestapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="connections")
@@ -55,6 +58,10 @@ public class Connection {
 
     @Column(name = "longitude")
     private BigDecimal longitude;
+
+    @OneToMany(mappedBy = "connection")
+    @JsonIgnoreProperties("connection")
+    private List<Meter> meters= new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -158,5 +165,13 @@ public class Connection {
 
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
+    }
+
+    public List<Meter> getMeters() {
+        return meters;
+    }
+
+    public void setMeters(List<Meter> meters) {
+        this.meters = meters;
     }
 }

@@ -60,6 +60,7 @@ public class MeterController {
         meterInDB.setInstallationDate(updatedMeter.getInstallationDate());
         meterInDB.setLatitude(updatedMeter.getLatitude());
         meterInDB.setLongitude(updatedMeter.getLongitude());
+        meterInDB.setConnection(updatedMeter.getConnection());
 
         meterRepository.save(meterInDB);
 
