@@ -1,5 +1,6 @@
 package io.upepo.baharirestapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -25,6 +26,10 @@ public class Tariff {
 
     @Column(name= "isactive")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "tariff")
+    @JsonIgnore()
+    private List<Connection> connections = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -56,5 +61,13 @@ public class Tariff {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<Connection> connections) {
+        this.connections = connections;
     }
 }

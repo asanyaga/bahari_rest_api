@@ -2,6 +2,8 @@ package io.upepo.baharirestapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -62,6 +64,11 @@ public class Connection {
     @OneToMany(mappedBy = "connection")
     @JsonIgnoreProperties("connection")
     private List<Meter> meters= new ArrayList<>();
+
+    @ManyToOne()
+    @JoinColumn(name="tariff_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Tariff tariff;
 
     public Long getId() {
         return id;
@@ -173,5 +180,13 @@ public class Connection {
 
     public void setMeters(List<Meter> meters) {
         this.meters = meters;
+    }
+
+    public Tariff getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
     }
 }
