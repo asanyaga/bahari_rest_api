@@ -91,6 +91,17 @@ INSERT INTO privileges (name) VALUES ("METER_READ");
 INSERT INTO privileges (name) VALUES ("METER_UPDATE");
 INSERT INTO privileges (name) VALUES ("METER_DELETE");
 
+INSERT INTO privileges (name) VALUES ("ZONE_CREATE");
+INSERT INTO privileges (name) VALUES ("ZONE_READ");
+INSERT INTO privileges (name) VALUES ("ZONE_UPDATE");
+INSERT INTO privileges (name) VALUES ("ZONE_DELETE");
+
+INSERT INTO privileges (name) VALUES ("CONNECTION_CREATE");
+INSERT INTO privileges (name) VALUES ("CONNECTION_READ");
+INSERT INTO privileges (name) VALUES ("CONNECTION_UPDATE");
+INSERT INTO privileges (name) VALUES ("CONNECTION_DELETE");
+
+
 INSERT INTO roles (name,issystem) VALUES ('ROLE_USER',1);
 INSERT INTO roles (name,issystem) VALUES ('ROLE_ADMIN',1);
 
@@ -157,7 +168,7 @@ CREATE TABLE `customers` (
   `longitude` decimal(11,8) DEFAULT '0.00000000',
   PRIMARY KEY (`Id`),
   UNIQUE KEY `meter_number_UNIQUE` (`meter_number`),
-  UNIQUE KEY `device_number_UNIQUE` (`device_number`);
+  UNIQUE KEY `device_number_UNIQUE` (`device_number`));
   
   CREATE TABLE `zones` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
