@@ -195,6 +195,7 @@ CREATE TABLE `connections` (
   `latitude` decimal(10,8) DEFAULT NULL,
   `longitude` decimal(11,8) DEFAULT NULL,
   `zone_id` int(11) NOT NULL,
+  `tariff_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `connection_zone_idx` (`zone_id`),
   CONSTRAINT `connection_zone` FOREIGN KEY (`zone_id`) REFERENCES `zones` (`id`)
@@ -214,4 +215,3 @@ CREATE TABLE `bahari`.`tariffs` (
   `rate_type` VARCHAR(45) NOT NULL,
   `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`Id`));
-  
