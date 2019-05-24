@@ -101,6 +101,11 @@ INSERT INTO privileges (name) VALUES ("CONNECTION_READ");
 INSERT INTO privileges (name) VALUES ("CONNECTION_UPDATE");
 INSERT INTO privileges (name) VALUES ("CONNECTION_DELETE");
 
+INSERT INTO privileges (name) VALUES ("TARIFF_CREATE");
+INSERT INTO privileges (name) VALUES ("TARIFF_READ");
+INSERT INTO privileges (name) VALUES ("TARIFF_UPDATE");
+INSERT INTO privileges (name) VALUES ("TARIFF_DELETE");
+
 
 INSERT INTO roles (name,issystem) VALUES ('ROLE_USER',1);
 INSERT INTO roles (name,issystem) VALUES ('ROLE_ADMIN',1);
@@ -150,8 +155,8 @@ CREATE TABLE `customers` (
   `phone` VARCHAR(45) NOT NULL DEFAULT '\"\"',
   `email` VARCHAR(45) NOT NULL DEFAULT '\"\"',
   PRIMARY KEY (`Id`),
-  UNIQUE INDEX `id_number_UNIQUE` (`id_number` ASC) VISIBLE,
-  UNIQUE INDEX `pin_number_UNIQUE` (`pin_number` ASC) VISIBLE);
+  UNIQUE INDEX `id_number_UNIQUE` (`id_number`),
+  UNIQUE INDEX `pin_number_UNIQUE` (`pin_number` ));
   
   CREATE TABLE `meters` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -195,5 +200,18 @@ CREATE TABLE `connections` (
   CONSTRAINT `connection_zone` FOREIGN KEY (`zone_id`) REFERENCES `zones` (`id`)
 );
 
+CREATE TABLE `bahari`.`tariffs` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `isactive` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`Id`));
   
+  CREATE TABLE `bahari`.`tariff_bands` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `tariff_id` INT NOT NULL,
+  `lower_limit` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
+  `upper_limit` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
+  `rate_type` VARCHAR(45) NOT NULL,
+  `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`Id`));
   
