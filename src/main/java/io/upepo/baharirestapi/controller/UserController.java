@@ -7,6 +7,7 @@ import io.upepo.baharirestapi.model.Role;
 import io.upepo.baharirestapi.model.User;
 
 import io.upepo.baharirestapi.payload.ChangePasswordDTO;
+import io.upepo.baharirestapi.payload.ListPayload;
 import io.upepo.baharirestapi.payload.LoginDTO;
 import io.upepo.baharirestapi.repository.UserRepository;
 import io.upepo.baharirestapi.repository.RoleRepository;
@@ -65,8 +66,15 @@ public class UserController {
 
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('USER_READ')")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ListPayload<User> getAllUsers() {
+
+        List<User> userList =userRepository.findAll();
+
+        ListPayload<User> response = new ListPayload<User>();
+
+        response.setContent(userList);
+
+        return response;
     }
 
     @GetMapping("/users/{id}")
@@ -82,7 +90,7 @@ public class UserController {
 
     @PostMapping("/users")
     @PreAuthorize("hasAuthority('USER_CREATE')")
-    public ResponseEntity<?> createUser(@Valid @RequestBody User user) throws UserNameExistsException, EmailExistsException, ResourceNotFoundException {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws UserNameExistsException, EmailExistsException, ResourceNotFoundException {
 
         List<User> duplicateUser = userRepository.findByusername(user.getUserName());
 
@@ -133,27 +141,6 @@ public class UserController {
         }
     }
 
-   /* @PostMapping("/login")
-    public ResponseEntity<User> login (@Valid @RequestBody LoginDTO loginDetails) throws InvalidUserNamePasswordException
-    {
-        List<User> users = userRepository.findByusername(loginDetails.getUserName());
-
-        if(users.size()==0)
-        {
-          throw  new InvalidUserNamePasswordException("Invalid user name or password");
-        }
-
-        User user= users.get(0);
-
-      if(!loginDetails.getPassword().equals(user.getPassword()))
-        {
-            throw new InvalidUserNamePasswordException("Invalid user name or password");
-
-        }
-
-        return  ResponseEntity.ok(user);
-    }*/
-
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 
@@ -200,7 +187,7 @@ public class UserController {
      * @return the map
      * @throws Exception the exception
      */
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     @PreAuthorize("hasAuthority('USER_DELETE')")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws Exception {
         User user =

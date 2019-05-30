@@ -215,3 +215,12 @@ CREATE TABLE `bahari`.`tariffs` (
   `rate_type` VARCHAR(45) NOT NULL,
   `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`Id`));
+  
+  CREATE TABLE `bahari`.`water_flow_readings` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` VARCHAR(100) NOT NULL,
+  `meter_id` INT NOT NULL,
+  `interval_flow` DECIMAL(8,2) NOT NULL,
+  `reading_date` DATETIME NOT NULL,
+  `reporting_date` DATETIME NOT NULL,
+  PRIMARY KEY (`Id`));

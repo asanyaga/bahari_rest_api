@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @CrossOrigin(origins = "*")
@@ -23,11 +24,13 @@ public class MDMMeterDataController {
     @Autowired
     MDMMeterDataRepository meterDataRepository;
 
-    @GetMapping("/mdm/{id}")
-    public ResponseEntity<?> getMeterDataByMeterCode(@PathVariable(value="id") Long meterID) throws ResourceNotFoundException
+    @GetMapping("/mdm/{deviceid}")
+    public ResponseEntity<?> getMeterDataByMeterCode(@PathVariable(value="deviceid") String deviceId)
     {
 
-        MDMMeterData mdm = meterDataRepository.findById(meterID).orElseThrow(() -> new ResourceNotFoundException("MDM Data not found"));
+       // List<MDMMeterData > mdm = meterDataRepository.findByDeviceId(deviceId);
+
+        List<MDMMeterData > mdm = meterDataRepository.findByDeviceIdOrderByTimeOfReadingAsc(deviceId);
 
         return ResponseEntity.ok(mdm);
     }

@@ -1,39 +1,44 @@
 package io.upepo.huizhongmdmimport.model;
 
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
+
 
 @Entity
-@Table(name="t_residentialdetaild")
+@Table(name="t_nbiot_flow")
 public class MDMMeterData {
 
     @Id
-    @Column(name="HDD_ID")
+    @Column(name="nid")
     private Long id;
 
-    @Column(name="HDD_MeterCode")
-    private String meterCode;
+    @Column(name="cDeviceId")
+    private String deviceId;
 
-    @Column(name="HDD_CumFlux")
-    private BigDecimal cummulativeFlow;
+    @Column(name="nflow")
+    private BigDecimal intervalFlow;
 
-    public String getMeterCode() {
-        return meterCode;
+    @Column(name = "dtimeOfReading")
+    private Date timeOfReading;
+
+    @Column(name="dtimeOfReporting")
+    private Date timeOfReporting;
+
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setMeterCode(String meterCode) {
-        this.meterCode = meterCode;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
-    public BigDecimal getCummulativeFlow() {
-        return cummulativeFlow;
+    public BigDecimal getIntervalFlow() {
+        return intervalFlow;
     }
 
-    public void setCummulativeFlow(BigDecimal cummulativeFlow) {
-        this.cummulativeFlow = cummulativeFlow;
+    public void setIntervalFlow(BigDecimal intervalFlow) {
+        this.intervalFlow = intervalFlow;
     }
 
     public Long getId() {
@@ -42,5 +47,21 @@ public class MDMMeterData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getTimeOfReading() {
+        return timeOfReading;
+    }
+
+    public void setTimeOfReading(Date timeOfReading) {
+        this.timeOfReading = timeOfReading;
+    }
+
+    public Date getTimeOfReporting() {
+        return timeOfReporting;
+    }
+
+    public void setTimeOfReporting(Date timeOfReporting) {
+        this.timeOfReporting = timeOfReporting;
     }
 }
