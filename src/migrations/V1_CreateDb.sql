@@ -224,3 +224,9 @@ CREATE TABLE `bahari`.`tariffs` (
   `reading_date` DATETIME NOT NULL,
   `reporting_date` DATETIME NOT NULL,
   PRIMARY KEY (`Id`));
+  
+  CREATE TABLE `bahari`.`meter_reading_track` (
+  `Id` INT NOT NULL,
+  `meter_id` INT NOT NULL,
+  `last_report_time` DATETIME NOT NULL,
+  PRIMARY KEY (`Id`));
