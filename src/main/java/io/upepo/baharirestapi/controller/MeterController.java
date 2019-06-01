@@ -2,8 +2,10 @@ package io.upepo.baharirestapi.controller;
 
 import io.upepo.baharirestapi.exception.ResourceNotFoundException;
 import io.upepo.baharirestapi.model.Meter;
+import io.upepo.baharirestapi.model.WaterFlowReading;
 import io.upepo.baharirestapi.repository.MeterRepository;
 
+import io.upepo.baharirestapi.repository.WaterFlowReadingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -13,12 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class MeterController {
     @Autowired MeterRepository meterRepository;
+
+    @Autowired
+    WaterFlowReadingRepository waterFlowReadingRepository;
 
     @PreAuthorize("hasAuthority('METER_READ')")
     @GetMapping("/meters")
@@ -35,6 +41,8 @@ public class MeterController {
 
         return ResponseEntity.ok(meterInDb);
     }
+
+
 
     @PreAuthorize("hasAuthority('METER_CREATE')")
     @PostMapping("/meters")

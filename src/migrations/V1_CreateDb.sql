@@ -225,8 +225,11 @@ CREATE TABLE `bahari`.`tariffs` (
   `reporting_date` DATETIME NOT NULL,
   PRIMARY KEY (`Id`));
   
-  CREATE TABLE `bahari`.`meter_reading_track` (
-  `Id` INT NOT NULL,
-  `meter_id` INT NOT NULL,
-  `last_report_time` DATETIME NOT NULL,
-  PRIMARY KEY (`Id`));
+CREATE TABLE `meter_reading_track` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `meter_id` int(11) NOT NULL,
+  `last_report_date` datetime NOT NULL,
+  `last_reading_date` datetime NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `meter_id_UNIQUE` (`meter_id`)
+);
