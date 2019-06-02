@@ -76,7 +76,7 @@ public class MDMMeterDataController {
             }
             else
             {
-                mdmDataList = meterDataRepository.findReadingsSinceLastReportDate(meter.getDeviceNumber(),tracker.getLastReportDate());
+                mdmDataList = meterDataRepository.findReadingsSinceLastReadingDate(meter.getDeviceNumber(),tracker.getLastReadingDate());
             }
 
             for(MDMMeterData mdmData: mdmDataList )

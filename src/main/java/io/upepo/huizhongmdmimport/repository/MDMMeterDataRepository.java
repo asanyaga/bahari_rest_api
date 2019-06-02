@@ -14,7 +14,7 @@ public interface MDMMeterDataRepository extends JpaRepository<MDMMeterData, Long
     public  List<MDMMeterData>findByDeviceIdOrderByTimeOfReadingAsc(String deviceId);
 
     @Query("FROM MDMMeterData WHERE deviceId =?1 AND timeOfReading > ?2 ORDER BY timeOfReading ASC")
-    public List<MDMMeterData> findReadingsSinceLastReportDate(String deviceId, Date lastReportingDate);
+    public List<MDMMeterData> findReadingsSinceLastReadingDate(String deviceId, Date lastReadingDate);
 
     @Query("SELECT MAX(timeOfReading) FROM MDMMeterData WHERE deviceId =?1")
     Date findLatestReadingDate(String deviceId);
