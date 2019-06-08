@@ -50,7 +50,7 @@ public class MDMMeterDataController {
         return ResponseEntity.ok(mdm);
     }
 
-    @PostMapping("/mdm/export")
+    @PostMapping("/mdm/import")
     public ResponseEntity<?> exportMeterReadings()
     {
 

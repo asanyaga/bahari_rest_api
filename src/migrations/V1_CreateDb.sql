@@ -38,7 +38,6 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB;
 
 
-
 DROP TABLE IF EXISTS `roles_privileges`;
 
 CREATE TABLE `roles_privileges` (
@@ -46,7 +45,6 @@ CREATE TABLE `roles_privileges` (
   `privilege_id` varchar(45) NOT NULL,
   KEY `FK629oqwrudgp5u7tewl07ayugj` (`role_id`)
 ) ENGINE=InnoDB ;
-
 
 
 DROP TABLE IF EXISTS `users`;
@@ -201,13 +199,13 @@ CREATE TABLE `connections` (
   CONSTRAINT `connection_zone` FOREIGN KEY (`zone_id`) REFERENCES `zones` (`id`)
 );
 
-CREATE TABLE `bahari`.`tariffs` (
+CREATE TABLE `tariffs` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `isactive` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`Id`));
   
-  CREATE TABLE `bahari`.`tariff_bands` (
+  CREATE TABLE `tariff_bands` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `tariff_id` INT NOT NULL,
   `lower_limit` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
@@ -216,7 +214,7 @@ CREATE TABLE `bahari`.`tariffs` (
   `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`Id`));
   
-  CREATE TABLE `bahari`.`water_flow_readings` (
+  CREATE TABLE `water_flow_readings` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `device_id` VARCHAR(100) NOT NULL,
   `meter_id` INT NOT NULL,
@@ -233,3 +231,15 @@ CREATE TABLE `meter_reading_track` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `meter_id_UNIQUE` (`meter_id`)
 );
+
+CREATE TABLE `bills` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `meter_id` VARCHAR(45) NOT NULL,
+  `date` DATETIME NOT NULL,
+  `start_date` DATETIME NOT NULL,
+  `end_date` DATETIME NOT NULL,
+  `consumption` DECIMAL(8,2) NOT NULL,
+  `rate` VARCHAR(200) NOT NULL,
+  `amount` DECIMAL(12,2) NOT NULL,
+  PRIMARY KEY (`Id`));
+
